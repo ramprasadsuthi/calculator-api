@@ -19,11 +19,12 @@ public class Person {
     }
 
     public void setAge(int age) {
+    	System.out.println("Set age is " + age);
         this.age = age;
     }
     
     public String getJob() {
-        return job;
+    	return job;
     }
 
     public void setJob(String job) {
