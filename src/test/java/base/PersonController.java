@@ -20,6 +20,7 @@ public class PersonController {
         person.setAge(30);
         person.setJob("Cricket Player");
         logger.info("Person Details - Name: {}, Age: {}", person.getName(), person.getAge(), person.getJob());
+	System.out.println("Some sample message");
         return person;
     }
     
