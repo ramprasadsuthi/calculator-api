@@ -15,6 +15,7 @@ public class Person {
     }
 
     public int getAge() {
+    	System.out.println("Age is " + age);
         return age;
     }
 
