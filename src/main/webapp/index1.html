@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Person Details</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function getPerson() {
+            $.get("/person", function (data) {
+                $("#name").text(data.name);
+                $("#age").text(data.age);
+                $("#job").text(data.job);
+            });
+        }
+
+        function updatePerson() {
+            var updatedPerson = {
+                name: $("#nameInput").val(),
+                age: $("#ageInput").val(),
+                job: $("#jobInput").val()
+            };
+
+            $.ajax({
+                url: "/person",
+                type: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify(updatedPerson),
+                success: function (data) {
+                    $("#name").text(data.name);
+                    $("#age").text(data.age);
+                    $("#job").text(data.job);
+                    $("#updateMessage").text("Person details updated successfully");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Person Details</h1>
+    <div>
+        <label>Name:</label>
+        <span id="name"></span>
+    </div>
+    <div>
+        <label>Age:</label>
+        <span id="age"></span>
+    </div>
+    <div>
+        <label>Job:</label>
+        <span id="job"></span>
+    </div>
+
+    <h2>Update Person Details</h2>
+    <div>
+        <label>Name:</label>
+        <input type="text" id="nameInput" />
+    </div>
+    <div>
+        <label>Age:</label>
+        <input type="number" id="ageInput" />
+    </div>
+    <div>
+        <label>Job:</label>
+        <input type="text" id="jobInput" />
+    </div>
+    <div>
+        <button onclick="updatePerson()">Update</button>
+    </div>
+    <div id="updateMessage"></div>
+
+    <script>
+        getPerson();
+    </script>
+</body>
+</html>

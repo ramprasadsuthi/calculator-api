@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Person Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .form-group button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        #updateMessage {
+            margin-top: 10px;
+            color: #4CAF50;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function getPerson() {
+            $.get("/person", function (data) {
+                $("#name").text(data.name);
+                $("#age").text(data.age);
+                $("#job").text(data.job);
+            });
+        }
+
+        function updatePerson() {
+            var updatedPerson = {
+                name: $("#nameInput").val(),
+                age: $("#ageInput").val(),
+                job: $("#jobInput").val()
+            };
+
+            $.ajax({
+                url: "/person",
+                type: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify(updatedPerson),
+                success: function (data) {
+                    $("#name").text(data.name);
+                    $("#age").text(data.age);
+                    $("#job").text(data.job);
+                    $("#updateMessage").text("Person details updated successfully");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Person Details</h1>
+        <div>
+            <label>==>Name:</label>
+            <span id="name"></span>
+        </div>
+        <div>
+            <label>====>Age :</label>
+            <span id="age"></span>
+        </div>
+        <div>
+            <label>====>Job :</label>
+            <span id="job"></span>
+        </div>
+
+        <h2>Update Person Details</h2>
+        <div class="form-group">
+            <label>Name:</label>
+            <input type="text" id="nameInput" />
+        </div>
+        <div class="form-group">
+            <label>Age:</label>
+            <input type="number" id="ageInput" />
+        </div>
+        <div class="form-group">
+            <label>Job:</label>
+            <input type="text" id="jobInput" />
+        </div>
+        <div class="form-group">
+            <button onclick="updatePerson()">Update</button>
+        </div>
+        <div id="updateMessage"></div>
+    </div>
+
+    <script>
+        getPerson();
+    </script>
+</body>
+</html>
